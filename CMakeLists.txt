@@ -13,7 +13,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(Qt5Core)
 
-include_directories(SimpleFactory/include)
+include_directories(SimpleFactory/include FactoryMethod/include)
 
 #Can manually add the sources using the set command as follows:
 #set(SOURCES main.cpp)

@@ -27,4 +27,20 @@ class ClamPizza: public Pizza
 {
 
 };
+
+
+class NYStyleCheesePizza: public Pizza
+{
+
+};
+
+class NYStylePepperoniPizza: public Pizza
+{
+
+};
+
+class NYStyleClamPizza: public Pizza
+{
+
+};
 #endif // PIZZA_H

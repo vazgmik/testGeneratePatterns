@@ -19,6 +19,24 @@ namespace  SimplePizzaFactory {
 
         return nullptr;
     }
+
+    //another way use class SimplePizzaFactory as class it gives dynamic behaviour
+    class Factory
+    {
+    public:
+        virtual unique_ptr<Pizza> createPizza(string type)
+        {
+            if(type == "cheese")
+                return make_unique<CheesePizza>();
+            else if(type == "pepperoni")
+                return make_unique<PepperoniPizza>();
+            else if(type == "clam")
+                return make_unique<ClamPizza>();
+            return nullptr;
+        }
+    };
+
+
 }
 
 
