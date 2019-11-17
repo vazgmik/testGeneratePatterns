@@ -13,13 +13,13 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(Qt5Core)
 
-include_directories(SimpleFactory/include FactoryMethod/include)
+include_directories(SimpleFactory/include AbstractFactory/include)
 
 #Can manually add the sources using the set command as follows:
 #set(SOURCES main.cpp)
 
 #However, the file(GLOB...) allows for wildcard additions:
-file(GLOB SOURCES "SimpleFactory/src/*.cpp")
+file(GLOB SOURCES "AbstractFactory/src/*.cpp" "SimpleFactory/src/*.cpp")
 
 add_executable(Generating main.cpp ${SOURCES})
 

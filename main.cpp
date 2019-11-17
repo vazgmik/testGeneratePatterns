@@ -4,9 +4,9 @@
 
 
 //#define SIMPLE_FACTORY  0
-#define FACTORY_METHOD  1
+//#define FACTORY_METHOD  1
+#define ABSTRACT_FACTORY  2
 using namespace std;
-
 
 #ifdef SIMPLE_FACTORY
 #include "simplepizzafactory.h"
@@ -34,11 +34,8 @@ public:
         return pizza;
     }
 };
-#endif
-
-#ifdef FACTORY_METHOD
+#elif FACTORY_METHOD
 #include "pizza.h"
-
 class PizzaStore {
 public:
     unique_ptr<Pizza> orderPizza(string type)
@@ -69,6 +66,39 @@ public:
         return nullptr;
     }
 };
+#elif ABSTRACT_FACTORY
+#include "pizzaa.h"
+class PizzaStore {
+public:
+    unique_ptr<PizzaA> orderPizza(string type)
+    {
+        auto pizza = createPizza(type);
+        pizza->prepare();
+        pizza->bake();
+        pizza->cut();
+        pizza->box();
+        return pizza;
+    }
+
+    virtual unique_ptr<PizzaA> createPizza(string type) = 0;
+    virtual ~PizzaStore() = default;
+};
+
+
+class NYPizzaStore: public PizzaStore {
+public:
+    unique_ptr<PizzaA> createPizza(string type) override
+    {
+        PizzaIngridientFactory factory = NYPizzaIngridientFactory();
+        if(type == "cheese")
+            return make_unique<CheesePizzaA>(factory);
+        else if(type == "pepperoni")
+            return make_unique<PepperoniPizzaA>(factory);
+        else if(type == "clam")
+            return make_unique<ClamPizzaA>(factory);
+        return nullptr;
+    }
+};
 #endif
 
 int main(int argc, char *argv[])
@@ -93,9 +123,7 @@ int main(int argc, char *argv[])
     //SimplePizzaFactory::FactoryChicago Chicagofactory;
     //PizzaStore ChicagoStore(Chicagofactory);
     //ChicagoStore.orderPizza("pepperoni");
-#endif
-
-#ifdef FACTORY_METHOD
+#elif FACTORY_METHOD
     cout << "FACTORY_METHOD\n";
 
     NYPizzaStore nystore;
@@ -103,6 +131,10 @@ int main(int argc, char *argv[])
 
     //ChicagoPizzaStore chicagostore;
     //auto chpizza = chicagostore.orderPizza("pepperoni");
+
+#elif ABSTRACT_FACTORY
+    NYPizzaStore store;
+    store.orderPizza("cheese");
 #endif
 
     return a.exec();
