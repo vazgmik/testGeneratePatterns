@@ -81,7 +81,6 @@ protected:
 
 
 class NYPizzaStore: public PizzaStore {
-public:
     unique_ptr<Pizza> createPizza(string type) override
     {
         if(type == "cheese")
