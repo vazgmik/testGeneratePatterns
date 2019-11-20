@@ -2,13 +2,39 @@
 #include <iostream>
 
 
-
+//#define DEPENDENT_FACTORY  -1
 //#define SIMPLE_FACTORY  0
-//#define FACTORY_METHOD  1
-#define ABSTRACT_FACTORY  2
+#define FACTORY_METHOD  1
+//#define ABSTRACT_FACTORY  2
 using namespace std;
 
-#ifdef SIMPLE_FACTORY
+#ifdef DEPENDENT_FACTORY
+#include "pizza.h"
+class DependentPizzaStore {
+public:
+    DependentPizzaStore()
+    {
+    }
+
+    unique_ptr<Pizza> orderPizza(string type)
+    {
+        unique_ptr<Pizza> pizza;
+
+        if(type == "cheese")
+            pizza =  make_unique<CheesePizza>();
+        else if(type == "pepperoni")
+            pizza =  make_unique<PepperoniPizza>();
+        else if(type == "clam")
+            pizza = make_unique<ClamPizza>();
+
+        pizza->prepare();
+        pizza->bake();
+        pizza->cut();
+        pizza->box();
+        return pizza;
+    }
+};
+#elif SIMPLE_FACTORY
 #include "simplepizzafactory.h"
 class PizzaStore {
 private:
