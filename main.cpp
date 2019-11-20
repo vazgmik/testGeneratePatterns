@@ -73,9 +73,10 @@ public:
         pizza->box();
         return pizza;
     }
-
-    virtual unique_ptr<Pizza> createPizza(string type) = 0;
     virtual ~PizzaStore() = default;
+protected:
+    virtual unique_ptr<Pizza> createPizza(string type) = 0;
+
 };
 
 
